@@ -208,6 +208,7 @@ class Engine(object):
                             result = False
                             reason = CHECK_TIMED_OUT_TEXT
                         else:
+                            # check the output of the command against a regex
                             if re.search(environment.matching_content, task.result['output']):
                                 result = True
                                 reason = CHECK_SUCCESS_TEXT

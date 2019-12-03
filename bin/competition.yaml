@@ -16,14 +16,14 @@ teams:
       - username: blueteam
         password: "cybersec$1"
     services:
-      - name: ICMPMercury
+      - name: ICMP_Mercury
         check_name: ICMPCheck
         host: "192.168.57.4"
         port: 0
         points: 25
         environments:
           - matching_content: 1 packets transmitted, 1 received
-      - name: ICMPVenus
+      - name: ICMP_Venus
         check_name: ICMPCheck
         host: "192.168.60.1"
         port: 0
@@ -47,7 +47,7 @@ teams:
             properties:
               - name: commands
                 value: whoami
-      - name: HTTP_Saturn
+      - name: HTTP_Vcenter
         check_name: HTTPCheck
         host: "192.168.57.11"
         port: 80
@@ -56,7 +56,7 @@ teams:
           - matching_content: "301 Moved Permanently"
             properties:
               - name: useragent
-                value: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)
+                value: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36 Edg/44.18362.449.0"
               - name: vhost
                 value: saturn.nasab.gov
               - name: uri
@@ -64,12 +64,34 @@ teams:
           - matching_content: "301 Moved Permanently"
             properties:
               - name: useragent
-                value: Opera/9.80 (Windows NT 6.2; Win64; x64) Presto/2.12 Version/12.16
+                value: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:61.0) Gecko/20100101 Firefox/70.0"
               - name: vhost
                 value: saturn.nasab.gov
               - name: uri
                 value: "/"
-      - name: HTTPS
+      - name: HTTPS_Mattermost
+        check_name: HTTPSCheck
+        host: testbed_web
+        port: 443
+        points: 100
+        environments:
+          - matching_content: Thank you for using nginx
+            properties:
+              - name: useragent
+                value: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)
+              - name: vhost
+                value: testbed_web
+              - name: uri
+                value: "/"
+          - matching_content: Thank you for using nginx
+            properties:
+              - name: useragent
+                value: Opera/9.80 (Windows NT 6.2; Win64; x64) Presto/2.12 Version/12.16
+              - name: vhost
+                value: testbed_web
+              - name: uri
+                value: "/"
+      - name: HTTPS_Neptune
         check_name: HTTPSCheck
         host: testbed_web
         port: 443
@@ -95,7 +117,7 @@ teams:
         check_name: MYSQLCheck
         host: "mars.nasab.gov"
         port: 3306
-        points: 100
+        points: 150
         accounts:
           - username: sride
             password: "AdAstra1!"
@@ -106,7 +128,7 @@ teams:
                 value: performance_schema
               - name: command
                 value: show tables;
-      - name: SMB
+      - name: SMB_Europa
         check_name: SMBCheck
         host: europa.nasab.gov
         port: 445
@@ -154,14 +176,14 @@ teams:
         check_name: LDAPCheck
         host: jupiter.nasab.gov
         port: 389
-        points: 50
+        points: 200
         accounts:
           - username: nasaadmin
             password: "AdAstra1!"
           - username: sride
             password: "AdAstra1!"
         environments:
-          - matching_content: "^result: 0 Success"
+          - matching_content: "result: 0 Success"
             properties:
               - name: domain
                 value: nasab.gov
