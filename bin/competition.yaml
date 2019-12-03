@@ -1,311 +1,311 @@
 ---
 teams:
-- name: WhiteTeam
-  color: White
-  users:
-  - username: whiteteam
-    password: 'Pikachu818zap!'
-- name: RedTeam
-  color: Red
-  users:
-  - username: redteam
-    password: 'D0MuchEv1l!'
-- name: BlueTeam
-  color: Blue
-  users:
-  - username: blueteam
-    password: 'cybersec$1'
-  services:
-  - name: ICMPMercury
-    check_name: ICMPCheck
-    host: "192.168.57.4"
-    port: 0
-    points: 25
-    environments:
-    - matching_content: 1 packets transmitted, 1 received
-  - name: ICMPVenus
-    check_name: ICMPCheck
-    host: "192.168.60.1"
-    port: 0
-    points: 25
-    environments:
-    - matching_content: 1 packets transmitted, 1 received
-  - name: SSH_Uranus
-    check_name: SSHCheck
-    host: 192.168.60.8
-    port: 22
-    points: 150
-    accounts:
-    - username: sride
-      password: 'AdAstra1!'
-    environments:
-    - matching_content: "^SUCCESS"
-      properties:
-      - name: commands
-        value: id;ls -l /home
-    - matching_content: sride
-      properties:
-      - name: commands
-        value: whoami
-  - name: HTTP_Saturn
-    check_name: HTTPCheck
-    host: "192.168.57.11"
-    port: 80
-    points: 50
-    environments:
-    - matching_content: "301 Moved Permanently"
-      properties:
-      - name: useragent
-        value: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)
-      - name: vhost
-        value: saturn.nasab.gov
-      - name: uri
-        value: "/"
-    - matching_content: "301 Moved Permanently"
-      properties:
-      - name: useragent
-        value: Opera/9.80 (Windows NT 6.2; Win64; x64) Presto/2.12 Version/12.16
-      - name: vhost
-        value: saturn.nasab.gov
-      - name: uri
-        value: "/"
-  - name: HTTPS
-    check_name: HTTPSCheck
-    host: testbed_web
-    port: 443
-    points: 100
-    environments:
-    - matching_content: Thank you for using nginx
-      properties:
-      - name: useragent
-        value: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)
-      - name: vhost
-        value: testbed_web
-      - name: uri
-        value: "/"
-    - matching_content: Thank you for using nginx
-      properties:
-      - name: useragent
-        value: Opera/9.80 (Windows NT 6.2; Win64; x64) Presto/2.12 Version/12.16
-      - name: vhost
-        value: testbed_web
-      - name: uri
-        value: "/"
-  - name: MySQL_Mars
-    check_name: MYSQLCheck
-    host: "mars.nasab.gov"
-    port: 3306
-    points: 100
-    accounts:
-    - username: sride
-      password: "AdAstra1!"
-    environments:
-    - matching_content: events_stages_history
-      properties:
-      - name: database
-        value: performance_schema
-      - name: command
-        value: show tables;
-  - name: SMB
-    check_name: SMBCheck
-    host: europa.nasab.gov
-    port: 445
-    points: 100
-    accounts:
-    - username: ttesterson
-      password: test
-    environments:
-    - matching_content: "^SUCCESS"
-      properties:
-      - name: remote_name
-        value: COMPUTERNAME
-      - name: share
-        value: ScoredShare
-      - name: file
-        value: flag.txt
-      # SHA256 hash of file
-      - name: hash
-        value: 3ac8347c1130bd1ffe9078f99be6cb690baedd9e5552de0f7140c0daded7e1fa
-  - name: DNS
-    check_name: DNSCheck
-    host: 192.168.57.20
-    port: 53
-    points: 100
-    environments:
-    - matching_content: 'status: NOERROR'
-      properties:
-      - name: qtype
-        value: A
-      - name: domain
-        value: jupiter.nasab.gov
-    - matching_content: 'status: NOERROR'
-      properties:
-      - name: qtype
-        value: A
-      - name: domain
-        value: phobos.nasab.gov
-    - matching_content: 'status: NOERROR'
-      properties:
-      - name: qtype
-        value: A
-      - name: domain
-        value: pluto.dev.nasab.gov
-   - name: LDAP_Jupiter
-     check_name: LDAPCheck
-     host: jupiter.nasab.gov
-     port: 389
-     points: 50
-     accounts:
-     - username: nasaadmin
-       password: 'AdAstra1!'
-     - username: sride
-       password: 'AdAstra1!'
-     environments:
-     - matching_content: "^result: 0 Success"
-       properties:
-       - name: domain
-         value: nasab.gov
-       - name: base_dn
-         value: dc=nasab,dc=gov
-  # - name: Wordpress
-  #   check_name: WordpressCheck
-  #   host: testbed_wordpress
-  #   port: 80
-  #   points: 100
-  #   accounts:
-  #   - username: admin
-  #     password: testpassword1!
-  #   environments:
-  #   - matching_content: Welcome to WordPress!
-  #     properties:
-  #     - name: useragent
-  #       value: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)
-  #     - name: vhost
-  #       value: www.example.com
-  #     - name: uri
-  #       value: "/wp-login.php"
-  # Commented out because we don't have testbed containers yet
-  # but these services should work, so feel free to uncomment
-  # for a real competition
-  # - name: RDP
-  #   check_name: RDPCheck
-  #   host: testbed_rdp
-  #   port: 3390
-  #   points: 100
-  #   accounts:
-  #   - username: ttesterson
-  #     password: test
-  #   environments:
-  #   - matching_content: SUCCESS$
-  # - name: LDAP
-  #   check_name: LDAPCheck
-  #   host: testbed_ldap
-  #   port: 389
-  #   points: 50
-  #   accounts:
-  #   - username: ttesterson
-  #     password: testpass
-  #   - username: rpeterson
-  #     password: otherpass
-  #   environments:
-  #   - matching_content: "^result: 0 Success"
-  #     properties:
-  #     - name: domain
-  #       value: example.com
-  #     - name: base_dn
-  #       value: dc=example,dc=com
-  # - name: VNC
-  #   check_name: VNCCheck
-  #   host: testbed_vnc
-  #   port: 5900
-  #   points: 100
-  #   accounts:
-  #   # BLANK for no username required
-  #   - username: BLANK
-  #     password: testpass
-  #   environments:
-  #   - matching_content: ACCOUNT FOUND
-  # - name: POP3
-  #   check_name: POP3Check
-  #   host: testbed_pop3
-  #   port: 110
-  #   points: 100
-  #   accounts:
-  #   - username: testuser
-  #     password: testpass
-  #   environments:
-  #   - matching_content: ACCOUNT FOUND
-  #     properties:
-  #     - name: domain
-  #       value: test.com
-  # - name: POP3S
-  #   check_name: POP3SCheck
-  #   host: testbed_pop3
-  #   port: 110
-  #   points: 100
-  #   accounts:
-  #   - username: testuser
-  #     password: testpass
-  #   environments:
-  #   - matching_content: ACCOUNT FOUND
-  #     properties:
-  #     - name: domain
-  #       value: test.com
-  # - name: IMAP
-  #   check_name: IMAPCheck
-  #   host: testbed_imap
-  #   port: 143
-  #   points: 100
-  #   accounts:
-  #   - username: testuser
-  #     password: testpass
-  #   environments:
-  #   - matching_content: ACCOUNT FOUND
-  #     properties:
-  #     - name: domain
-  #       value: test.com
-  # - name: IMAPS
-  #   check_name: IMAPSCheck
-  #   host: testbed_imap
-  #   port: 143
-  #   points: 100
-  #   accounts:
-  #   - username: testuser
-  #     password: testpass
-  #   environments:
-  #   - matching_content: ACCOUNT FOUND
-  #     properties:
-  #     - name: domain
-  #       value: test.com
-  # - name: NFS
-  #   check_name: NFSCheck
-  #   host: 157.230.144.56
-  #   port: 0
-  #   points: 150
-  #   environments:
-  #   - matching_content: "^SUCCESS"
-  #     properties:
-  #     - name: remotefilepath
-  #       value: "/var/nfs/general/testfile.txt"
-  #     - name: filecontents
-  #       value: Sample file contents
-  # - name: Telnet
-  #   check_name: TelnetCheck
-  #   host: testbed_telnet
-  #   port: 23
-  #   timeout: 15
-  #   points: 100
-  #   accounts:
-  #   - username: ttesterson
-  #     password: testpass
-  #   - username: rpeterson
-  #     password: otherpass
-  #   environments:
-  #   - matching_content: "^SUCCESS"
-  #     properties:
-  #     - name: commands
-  #       value: id;ls -l /home
-  #   - matching_content: PID
-  #     properties:
-  #     - name: commands
-  #       value: ps
+  - name: WhiteTeam
+    color: White
+    users:
+      - username: whiteteam
+        password: "Pikachu818zap!"
+  - name: RedTeam
+    color: Red
+    users:
+      - username: redteam
+        password: "D0MuchEv1l!"
+  - name: BlueTeam
+    color: Blue
+    users:
+      - username: blueteam
+        password: "cybersec$1"
+    services:
+      - name: ICMPMercury
+        check_name: ICMPCheck
+        host: "192.168.57.4"
+        port: 0
+        points: 25
+        environments:
+          - matching_content: 1 packets transmitted, 1 received
+      - name: ICMPVenus
+        check_name: ICMPCheck
+        host: "192.168.60.1"
+        port: 0
+        points: 25
+        environments:
+          - matching_content: 1 packets transmitted, 1 received
+      - name: SSH_Uranus
+        check_name: SSHCheck
+        host: 192.168.60.8
+        port: 22
+        points: 150
+        accounts:
+          - username: sride
+            password: "AdAstra1!"
+        environments:
+          - matching_content: "^SUCCESS"
+            properties:
+              - name: commands
+                value: id;ls -l /home
+          - matching_content: sride
+            properties:
+              - name: commands
+                value: whoami
+      - name: HTTP_Saturn
+        check_name: HTTPCheck
+        host: "192.168.57.11"
+        port: 80
+        points: 50
+        environments:
+          - matching_content: "301 Moved Permanently"
+            properties:
+              - name: useragent
+                value: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)
+              - name: vhost
+                value: saturn.nasab.gov
+              - name: uri
+                value: "/"
+          - matching_content: "301 Moved Permanently"
+            properties:
+              - name: useragent
+                value: Opera/9.80 (Windows NT 6.2; Win64; x64) Presto/2.12 Version/12.16
+              - name: vhost
+                value: saturn.nasab.gov
+              - name: uri
+                value: "/"
+      - name: HTTPS
+        check_name: HTTPSCheck
+        host: testbed_web
+        port: 443
+        points: 100
+        environments:
+          - matching_content: Thank you for using nginx
+            properties:
+              - name: useragent
+                value: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)
+              - name: vhost
+                value: testbed_web
+              - name: uri
+                value: "/"
+          - matching_content: Thank you for using nginx
+            properties:
+              - name: useragent
+                value: Opera/9.80 (Windows NT 6.2; Win64; x64) Presto/2.12 Version/12.16
+              - name: vhost
+                value: testbed_web
+              - name: uri
+                value: "/"
+      - name: MySQL_Mars
+        check_name: MYSQLCheck
+        host: "mars.nasab.gov"
+        port: 3306
+        points: 100
+        accounts:
+          - username: sride
+            password: "AdAstra1!"
+        environments:
+          - matching_content: events_stages_history
+            properties:
+              - name: database
+                value: performance_schema
+              - name: command
+                value: show tables;
+      - name: SMB
+        check_name: SMBCheck
+        host: europa.nasab.gov
+        port: 445
+        points: 100
+        accounts:
+          - username: ttesterson
+            password: test
+        environments:
+          - matching_content: "^SUCCESS"
+            properties:
+              - name: remote_name
+                value: COMPUTERNAME
+              - name: share
+                value: ScoredShare
+              - name: file
+                value: flag.txt
+              # SHA256 hash of file
+              - name: hash
+                value: 3ac8347c1130bd1ffe9078f99be6cb690baedd9e5552de0f7140c0daded7e1fa
+      - name: DNS_Jupiter
+        check_name: DNSCheck
+        host: 192.168.57.20
+        port: 53
+        points: 100
+        environments:
+          - matching_content: "status: NOERROR"
+            properties:
+              - name: qtype
+                value: A
+              - name: domain
+                value: jupiter.nasab.gov
+          - matching_content: "status: NOERROR"
+            properties:
+              - name: qtype
+                value: A
+              - name: domain
+                value: phobos.nasab.gov
+          - matching_content: "status: NOERROR"
+            properties:
+              - name: qtype
+                value: A
+              - name: domain
+                value: pluto.dev.nasab.gov
+      - name: LDAP_Jupiter
+        check_name: LDAPCheck
+        host: jupiter.nasab.gov
+        port: 389
+        points: 50
+        accounts:
+          - username: nasaadmin
+            password: "AdAstra1!"
+          - username: sride
+            password: "AdAstra1!"
+        environments:
+          - matching_content: "^result: 0 Success"
+            properties:
+              - name: domain
+                value: nasab.gov
+              - name: base_dn
+                value: dc=nasab,dc=gov
+    # - name: Wordpress
+    #   check_name: WordpressCheck
+    #   host: testbed_wordpress
+    #   port: 80
+    #   points: 100
+    #   accounts:
+    #   - username: admin
+    #     password: testpassword1!
+    #   environments:
+    #   - matching_content: Welcome to WordPress!
+    #     properties:
+    #     - name: useragent
+    #       value: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)
+    #     - name: vhost
+    #       value: www.example.com
+    #     - name: uri
+    #       value: "/wp-login.php"
+    # Commented out because we don't have testbed containers yet
+    # but these services should work, so feel free to uncomment
+    # for a real competition
+    # - name: RDP
+    #   check_name: RDPCheck
+    #   host: testbed_rdp
+    #   port: 3390
+    #   points: 100
+    #   accounts:
+    #   - username: ttesterson
+    #     password: test
+    #   environments:
+    #   - matching_content: SUCCESS$
+    # - name: LDAP
+    #   check_name: LDAPCheck
+    #   host: testbed_ldap
+    #   port: 389
+    #   points: 50
+    #   accounts:
+    #   - username: ttesterson
+    #     password: testpass
+    #   - username: rpeterson
+    #     password: otherpass
+    #   environments:
+    #   - matching_content: "^result: 0 Success"
+    #     properties:
+    #     - name: domain
+    #       value: example.com
+    #     - name: base_dn
+    #       value: dc=example,dc=com
+    # - name: VNC
+    #   check_name: VNCCheck
+    #   host: testbed_vnc
+    #   port: 5900
+    #   points: 100
+    #   accounts:
+    #   # BLANK for no username required
+    #   - username: BLANK
+    #     password: testpass
+    #   environments:
+    #   - matching_content: ACCOUNT FOUND
+    # - name: POP3
+    #   check_name: POP3Check
+    #   host: testbed_pop3
+    #   port: 110
+    #   points: 100
+    #   accounts:
+    #   - username: testuser
+    #     password: testpass
+    #   environments:
+    #   - matching_content: ACCOUNT FOUND
+    #     properties:
+    #     - name: domain
+    #       value: test.com
+    # - name: POP3S
+    #   check_name: POP3SCheck
+    #   host: testbed_pop3
+    #   port: 110
+    #   points: 100
+    #   accounts:
+    #   - username: testuser
+    #     password: testpass
+    #   environments:
+    #   - matching_content: ACCOUNT FOUND
+    #     properties:
+    #     - name: domain
+    #       value: test.com
+    # - name: IMAP
+    #   check_name: IMAPCheck
+    #   host: testbed_imap
+    #   port: 143
+    #   points: 100
+    #   accounts:
+    #   - username: testuser
+    #     password: testpass
+    #   environments:
+    #   - matching_content: ACCOUNT FOUND
+    #     properties:
+    #     - name: domain
+    #       value: test.com
+    # - name: IMAPS
+    #   check_name: IMAPSCheck
+    #   host: testbed_imap
+    #   port: 143
+    #   points: 100
+    #   accounts:
+    #   - username: testuser
+    #     password: testpass
+    #   environments:
+    #   - matching_content: ACCOUNT FOUND
+    #     properties:
+    #     - name: domain
+    #       value: test.com
+    # - name: NFS
+    #   check_name: NFSCheck
+    #   host: 157.230.144.56
+    #   port: 0
+    #   points: 150
+    #   environments:
+    #   - matching_content: "^SUCCESS"
+    #     properties:
+    #     - name: remotefilepath
+    #       value: "/var/nfs/general/testfile.txt"
+    #     - name: filecontents
+    #       value: Sample file contents
+    # - name: Telnet
+    #   check_name: TelnetCheck
+    #   host: testbed_telnet
+    #   port: 23
+    #   timeout: 15
+    #   points: 100
+    #   accounts:
+    #   - username: ttesterson
+    #     password: testpass
+    #   - username: rpeterson
+    #     password: otherpass
+    #   environments:
+    #   - matching_content: "^SUCCESS"
+    #     properties:
+    #     - name: commands
+    #       value: id;ls -l /home
+    #   - matching_content: PID
+    #     properties:
+    #     - name: commands
+    #       value: ps
