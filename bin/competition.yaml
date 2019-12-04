@@ -69,6 +69,28 @@ teams:
                 value: saturn.nasab.gov
               - name: uri
                 value: "/"
+      - name: HTTP_Europa
+        check_name: HTTPCheck
+        host: "europa.nasab.gov"
+        port: 80
+        points: 50
+        environments:
+          - matching_content: "mars-map.jpg"
+            properties:
+              - name: useragent
+                value: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36 Edg/44.18362.449.0"
+              - name: vhost
+                value: europa.nasab.gov
+              - name: uri
+                value: "/"
+          - matching_content: "301 Moved Permanently"
+            properties:
+              - name: useragent
+                value: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:61.0) Gecko/20100101 Firefox/70.0"
+              - name: vhost
+                value: europa.nasab.gov
+              - name: uri
+                value: "/"
       - name: HTTPS_Mattermost
         check_name: HTTPSCheck
         host: testbed_web
@@ -134,20 +156,20 @@ teams:
         port: 445
         points: 100
         accounts:
-          - username: ttesterson
-            password: test
+          - username: sride
+            password: "AdAstra1!"
         environments:
-          - matching_content: "^SUCCESS"
+          - matching_content: "SUCCESS"
             properties:
               - name: remote_name
-                value: COMPUTERNAME
+                value: europa.nasab.gov
               - name: share
-                value: ScoredShare
+                value: EuropaFiles
               - name: file
-                value: flag.txt
+                value: mars-map.jpg
               # SHA256 hash of file
               - name: hash
-                value: 3ac8347c1130bd1ffe9078f99be6cb690baedd9e5552de0f7140c0daded7e1fa
+                value: bda0f8fca16adfc89fdbc596e0b934a3c403e98bbdf59bf429dcbccfe3eb928d
       - name: DNS_Jupiter
         check_name: DNSCheck
         host: 192.168.57.20
