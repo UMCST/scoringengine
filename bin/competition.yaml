@@ -93,26 +93,26 @@ teams:
                 value: "/"
       - name: HTTPS_Mattermost
         check_name: HTTPSCheck
-        host: testbed_web
+        host: 192.168.57.42
         port: 443
         points: 100
         environments:
-          - matching_content: Thank you for using nginx
+          - matching_content: Mattermost
             properties:
               - name: useragent
                 value: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)
               - name: vhost
-                value: testbed_web
+                value: phobos.nasab.gov
               - name: uri
-                value: "/"
-          - matching_content: Thank you for using nginx
+                value: "/login"
+          - matching_content: com.mattermost.nps
             properties:
               - name: useragent
-                value: Opera/9.80 (Windows NT 6.2; Win64; x64) Presto/2.12 Version/12.16
+                value: "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:59.0) Gecko/20100101 Firefox/69.0"
               - name: vhost
-                value: testbed_web
+                value: phobos.nasab.gov
               - name: uri
-                value: "/"
+                value: "/api/v4/plugins/webapp"
       - name: HTTPS_Neptune
         check_name: HTTPSCheck
         host: testbed_web
